@@ -1,0 +1,51 @@
+{% extends 'miapp/index.html' %}
+
+{% block content %}
+    {% if not comunicados %}<p>Sin Comunicados</p>{% endif %}
+
+    <div class="d-block d-xxl-none container">
+        <div class="row my-3">
+        {% for comunicado in comunicados %}
+            <div id="cartas" class="col-12 col-sm-4 col-xxl-12">
+                <div class="card card-body" style="width: 100%;">
+                    <h5 class="card-title">{{ comunicado.titulo }}</h5>
+                    <h6 class="text-secondary">{{ comunicado.entidad.nombre }}</h6>
+                    <p class="card-text">{{ comunicado.detalle }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+
+    <div class="d-none d-xxl-block container my-5">
+        <div id="Carrucel" class="carousel slide" data-bs-ride="true">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#Carrucel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#Carrucel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#Carrucel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                {% for comunicado in ultimos %}
+                    <div class="carousel-item {% if comunicado == comunicados|first %}active{% endif %}">
+                        <div class="text-bg-secondary" style="height: 500px">
+                            <div class="px-5 mx-5">
+                                <h1 class="display-4 fw-bold px-5 py-5">{{ comunicado.titulo }}</h1>
+                                <p class="lead my-3 px-5">{{ comunicado.detalle_corto }}</p>
+                                <p class="lead mb-0 px-5">{{ comunicado.detalle }}</p>
+                                <p class="lead mb-0 px-5">{{ comunicado.modificado_por }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#Carrucel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#Carrucel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+{% endblock %}
